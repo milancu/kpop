@@ -72,7 +72,7 @@ const Home = () => {
                         className="w-full mb-10"/>
             {currentIndex === questionsToShow.length ?
               <div
-                className={"absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full px-2 box-border flex flex-col gap-2.5"}>
+                className={"w-full flex flex-col gap-2.5"}>
                 <Button className={"w-full"} onClick={() => setCurrentIndex(0)}>Chci hrát to samé znova!</Button>
                 <Button color={"primary"} className={"w-full"} onClick={() => setState(0)}>Už to umím, chci novou
                   hru!</Button>
