@@ -61,9 +61,9 @@ const Question = ({
 
 
   return (
-    <div>
+    <div className={"mb-2"}>
       {question.question}
-      <div className="flex flex-col gap-1 w-full mt-8">
+      <div className="flex flex-col gap-1 w-full mt-6">
         <CheckboxGroup
           // @ts-ignore
           value={selected}
@@ -88,10 +88,10 @@ const Question = ({
       </div>
       <div className={"mt-2 w-full text-right"}>
         {!hasValidate && <Button color={"primary"} onClick={handleValidate}>
-            Validate
+            Zkontrolovat
         </Button>}
         {hasValidate && <Button color={"primary"} onClick={handleNextQuestion}>
-            Next
+            Další
         </Button>}
       </div>
     </div>

@@ -40,7 +40,7 @@ const Home = () => {
 
 
   return (
-    <div>
+    <>
       {state === 0 &&
           <WelcomeScreen numberOfQuestions={questions.length} handleClick={() => setState(1)}
                          handleChangeValue={handleNumberOfQuestions}/>}
@@ -48,13 +48,14 @@ const Home = () => {
           <>
             {currentIndex !== questionsToShow.length &&
                 <div className={"font-bold text-center w-full mb-1"}>
-                    {currentIndex + 1 + "/" + questionsToShow.length}
-              </div>
+                  {currentIndex + 1 + "/" + questionsToShow.length}
+                </div>
             }
               <Progress aria-label="Loading..." value={currentIndex * 100 / questionsToShow.length}
-                        className="w-full mb-12"/>
+                        className="w-full mb-10"/>
             {currentIndex === questionsToShow.length ?
-              <div className={"flex flex-col gap-2.5"}>
+              <div
+                className={"absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full px-2 box-border flex flex-col gap-2.5"}>
                 <Button className={"w-full"} onClick={() => setCurrentIndex(0)}>Chci hrát to samé znova!</Button>
                 <Button color={"primary"} className={"w-full"} onClick={() => setState(0)}>Už to umím, chci novou
                   hru!</Button>
@@ -65,7 +66,7 @@ const Home = () => {
             }
           </>
       }
-    </div>
+    </>
   );
 }
 
