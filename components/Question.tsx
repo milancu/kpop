@@ -90,7 +90,7 @@ const Question = ({
         {!hasValidate && <Button color={"primary"} onClick={handleValidate}>
             Zkontrolovat
         </Button>}
-        {hasValidate && <Button color={"primary"} onClick={handleNextQuestion}>
+        {hasValidate && <Button color={"primary"} variant={"shadow"} onClick={handleNextQuestion}>
             Další
         </Button>}
       </div>

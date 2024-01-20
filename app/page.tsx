@@ -6,6 +6,15 @@ import React, {useCallback, useEffect, useState} from "react";
 import Question from "@/components/Question";
 import {Progress} from "@nextui-org/progress";
 import {Button} from "@nextui-org/button";
+import BatchMode from "@/components/BatchMode";
+
+function chunkArray<T>(arr: T[], chunkSize: number): T[][] {
+  const result: T[][] = [];
+  for (let i = 0; i < arr.length; i += chunkSize) {
+    result.push(arr.slice(i, i + chunkSize));
+  }
+  return result;
+}
 
 const shuffleQuestions = (questions: any[]) => {
   for (let i = questions.length - 1; i > 0; i--) {
@@ -19,6 +28,8 @@ const Home = () => {
   const [numberOfQuestion, setNumberOfQuestion] = useState(40)
   const [questionsToShow, setQuestions] = useState(questions)
   const [currentIndex, setCurrentIndex] = useState(0)
+
+  const [batchQuestion, setBatchQuestion] = useState<any[]>([])
 
   const handleNumberOfQuestions = useCallback((newValue: string) => {
     setNumberOfQuestion(Number(newValue))
@@ -38,13 +49,19 @@ const Home = () => {
     setCurrentIndex(0)
   }, [state]);
 
+  useEffect(() => {
+    const batches = chunkArray(shuffleQuestions(questions), 10);
+    setBatchQuestion(batches);
+  }, []);
 
   return (
     <>
       {state === 0 &&
-          <WelcomeScreen numberOfQuestions={questions.length} handleClick={() => setState(1)}
+          <WelcomeScreen numberOfQuestions={questions.length}
+                         handleStartBatchGame={() => setState(2)}
+                         handleStartClassicGame={() => setState(1)}
                          handleChangeValue={handleNumberOfQuestions}/>}
-      {state !== 0 &&
+      {state === 1 &&
           <>
             {currentIndex !== questionsToShow.length &&
                 <div className={"font-bold text-center w-full mb-1"}>
@@ -65,6 +82,9 @@ const Home = () => {
               </>
             }
           </>
+      }
+      {state === 2 &&
+          <BatchMode batchQuestion={batchQuestion} handleBackToHome={() => setState(0)}/>
       }
     </>
   );
