@@ -53,9 +53,9 @@ const Question = ({
   }, [])
 
   useEffect(() => {
-    setSelected([]);
     setCorrectAnswers([]);
     setWrongAnswers([]);
+    setSelected([]);
     if (hasValidate) {
       handleHasValidate();
     }
