@@ -7,10 +7,12 @@ import React, {useCallback, useState} from "react";
 
 const BatchMode = ({
                      batchQuestion,
-                     handleBackToHome
+                     handleBackToHome,
+                     onOpen
                    }: {
   batchQuestion: any[],
   handleBackToHome: () => void
+  onOpen: () => void
 }) => {
   const [currentBatchIndex, setCurrentBatchIndex] = useState(0)
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
@@ -48,7 +50,7 @@ const BatchMode = ({
           }
         </div> :
         <>
-          <Question question={questionsToShow[currentQuestionIndex]} handleNextQuestion={handleNextQuestionIndex}/>
+          <Question onOpen={onOpen} question={questionsToShow[currentQuestionIndex]} handleNextQuestion={handleNextQuestionIndex}/>
         </>
       }
     </>

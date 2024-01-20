@@ -1,19 +1,22 @@
 "use client"
 
-import {Select, SelectSection, SelectItem} from "@nextui-org/select";
+import {Select, SelectItem} from "@nextui-org/select";
 import {Button} from "@nextui-org/button";
 
 const WelcomeScreen = ({
                          numberOfQuestions,
                          handleStartClassicGame,
                          handleStartBatchGame,
-                         handleChangeValue
+                         handleChangeValue,
+                         onOpen
                        }: {
   numberOfQuestions: number,
+  onOpen: () => void,
   handleStartClassicGame: () => void,
   handleStartBatchGame: () => void,
   handleChangeValue: (value: string) => void
 }) => {
+
   return (
     <div className={"flex flex-col items-center gap-1 justify-center h-screen"}>
       <h4 className={"text-4xl font-bold mb-10"}>KPOP Autoškola</h4>
@@ -41,6 +44,9 @@ const WelcomeScreen = ({
       </Button>
       <Button className={"w-full mt-2"} variant={"flat"} color={"primary"} onClick={handleStartBatchGame}>
         Chci Batch po 10 otázkách
+      </Button>
+      <Button className={"w-full mt-10"} variant={"bordered"} color={"primary"} onPress={onOpen}>
+        Jak funguje hodnocení?
       </Button>
     </div>
   )

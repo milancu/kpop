@@ -7,6 +7,10 @@ import Question from "@/components/Question";
 import {Progress} from "@nextui-org/progress";
 import {Button} from "@nextui-org/button";
 import BatchMode from "@/components/BatchMode";
+import {Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure} from "@nextui-org/modal";
+import {Checkbox} from "@nextui-org/checkbox";
+import {cn} from "@nextui-org/system-rsc";
+import CustomModal from "@/components/CustomModal";
 
 function chunkArray<T>(arr: T[], chunkSize: number): T[][] {
   const result: T[][] = [];
@@ -24,6 +28,12 @@ const shuffleQuestions = (questions: any[]) => {
   return questions;
 };
 const Home = () => {
+  const {
+    isOpen,
+    onOpen,
+    onOpenChange
+  } = useDisclosure();
+
   const [state, setState] = useState(0)
   const [numberOfQuestion, setNumberOfQuestion] = useState(40)
   const [questionsToShow, setQuestions] = useState(questions)
@@ -58,6 +68,7 @@ const Home = () => {
     <>
       {state === 0 &&
           <WelcomeScreen numberOfQuestions={questions.length}
+                         onOpen={onOpen}
                          handleStartBatchGame={() => setState(2)}
                          handleStartClassicGame={() => setState(1)}
                          handleChangeValue={handleNumberOfQuestions}/>}
@@ -78,14 +89,16 @@ const Home = () => {
                   hru!</Button>
               </div> :
               <>
-                <Question question={questionsToShow[currentIndex]} handleNextQuestion={handleNextIndex}/>
+                <Question onOpen={onOpen} question={questionsToShow[currentIndex]} handleNextQuestion={handleNextIndex}/>
               </>
             }
           </>
       }
       {state === 2 &&
-          <BatchMode batchQuestion={batchQuestion} handleBackToHome={() => setState(0)}/>
+          <BatchMode onOpen={onOpen}
+                     batchQuestion={batchQuestion} handleBackToHome={() => setState(0)}/>
       }
+      <CustomModal isOpen={isOpen} onOpenChange={onOpenChange}/>
     </>
   );
 }

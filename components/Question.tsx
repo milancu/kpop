@@ -7,10 +7,12 @@ import {CustomCheckbox} from "@/components/CustomCheckbox";
 
 const Question = ({
                     handleNextQuestion,
+                    onOpen,
                     question
                   }: {
   question: any,
   handleNextQuestion: () => void
+  onOpen: () => void
 }) => {
   const [selected, setSelected] = useState<number[]>([]);
   const [hasValidate, setHasValidate] = useState(false)
@@ -62,7 +64,7 @@ const Question = ({
 
   return (
     <div className={"mb-2"}>
-      {question.question}
+      <div>{question.question}</div>
       <div className="flex flex-col gap-1 w-full mt-6">
         <CheckboxGroup
           // @ts-ignore
@@ -90,9 +92,15 @@ const Question = ({
         {!hasValidate && <Button color={"primary"} onClick={handleValidate}>
             Zkontrolovat
         </Button>}
-        {hasValidate && <Button color={"primary"} variant={"shadow"} onClick={handleNextQuestion}>
-            Další
-        </Button>}
+        {hasValidate &&
+            <>
+              {hasValidate &&
+                  <Button onPress={onOpen} className={"mr-1"} variant={"light"} color={"primary"}>Jak funguje hodnoceni?</Button>}
+                <Button color={"primary"} variant={"shadow"} onClick={handleNextQuestion}>
+                    Další
+                </Button>
+            </>
+        }
       </div>
     </div>
   )
