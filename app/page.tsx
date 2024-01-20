@@ -35,7 +35,7 @@ const Home = () => {
   } = useDisclosure();
 
   const [state, setState] = useState(0)
-  const [numberOfQuestion, setNumberOfQuestion] = useState(40)
+  const [numberOfQuestion, setNumberOfQuestion] = useState(20)
   const [questionsToShow, setQuestions] = useState(questions)
   const [currentIndex, setCurrentIndex] = useState(0)
 
