@@ -20,7 +20,7 @@ const CustomModal = ({
             <ModalHeader className="flex flex-col gap-1">Jak číst hodnocení?</ModalHeader>
             <ModalBody>
               <p className={"text-green-500"}>
-                Správně - označil jsi správnou odpověď.
+                Správně - Byla označena správná odpověď.
                 <Checkbox
                   isDisabled
                   defaultSelected
@@ -36,11 +36,11 @@ const CustomModal = ({
                   }}
                   value={"1"}
                 >
-                  {"Lorem ipsum dolor sit amet."}
+                  Lorem ipsum dolor sit amet.
                 </Checkbox>
               </p>
               <p className={"text-green-500"}>
-                Správně - neoznačil jsi špatnou odpověď.
+                Správně - Nebyla označena špatná odpověď.
                 <Checkbox
                   isDisabled
                   classNames={{
@@ -54,11 +54,11 @@ const CustomModal = ({
                   }}
                   value={"2"}
                 >
-                  {"Lorem ipsum dolor sit amet."}
+                  Lorem ipsum dolor sit amet.
                 </Checkbox>
               </p>
               <p className={"text-rose-500"}>
-                Špatně - označil jsi špatnou odpověď
+                Špatně - Byla označna špatná odpověď
                 <Checkbox
                   isDisabled
                   defaultSelected
@@ -74,11 +74,11 @@ const CustomModal = ({
                   }}
                   value={"3"}
                 >
-                  {"Lorem ipsum dolor sit amet."}
+                  Lorem ipsum dolor sit amet.
                 </Checkbox>
               </p>
               <p className={"text-rose-500"}>
-                Špatně - neoznačil jsi správnou odpověď
+                Špatně - Nebyla označena správná odpověď
                 <Checkbox
                   isDisabled
                   classNames={{
@@ -92,7 +92,7 @@ const CustomModal = ({
                   }}
                   value={"3"}
                 >
-                  {"Lorem ipsum dolor sit amet."}
+                  Lorem ipsum dolor sit amet.
                 </Checkbox>
               </p>
               <p className={"text-orange-500"}>
@@ -110,7 +110,7 @@ const CustomModal = ({
                   }}
                   value={"4"}
                 >
-                  {"Lorem ipsum dolor sit amet."}
+                  Lorem ipsum dolor sit amet.
                 </Checkbox>
               </p>
             </ModalBody>
