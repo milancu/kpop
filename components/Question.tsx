@@ -55,7 +55,7 @@ const Question = ({
     setCorrectAnswers([]);
     setWrongAnswers([]);
     handleHasValidate();
-  }, [question]);
+  }, [handleHasValidate, question]);
 
 
   return (
