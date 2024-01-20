@@ -1,51 +1,53 @@
-import { Link } from "@nextui-org/link";
-import { Snippet } from "@nextui-org/snippet";
-import { Code } from "@nextui-org/code"
-import { button as buttonStyles } from "@nextui-org/theme";
-import { siteConfig } from "@/config/site";
-import { title, subtitle } from "@/components/primitives";
-import { GithubIcon } from "@/components/icons";
+"use client"
 
-export default function Home() {
-	return (
-		<section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
-			<div className="inline-block max-w-lg text-center justify-center">
-				<h1 className={title()}>Make&nbsp;</h1>
-				<h1 className={title({ color: "violet" })}>beautiful&nbsp;</h1>
-				<br />
-				<h1 className={title()}>
-					websites regardless of your design experience.
-				</h1>
-				<h2 className={subtitle({ class: "mt-4" })}>
-					Beautiful, fast and modern React UI library.
-				</h2>
-			</div>
+import WelcomeScreen from "@/components/WelcomeScreen";
+import {questions} from "@/config/otazky";
+import React, {useCallback, useEffect, useState} from "react";
+import Question from "@/components/Question";
+import {Progress} from "@nextui-org/progress";
 
-			<div className="flex gap-3">
-				<Link
-					isExternal
-					href={siteConfig.links.docs}
-					className={buttonStyles({ color: "primary", radius: "full", variant: "shadow" })}
-				>
-					Documentation
-				</Link>
-				<Link
-					isExternal
-					className={buttonStyles({ variant: "bordered", radius: "full" })}
-					href={siteConfig.links.github}
-				>
-					<GithubIcon size={20} />
-					GitHub
-				</Link>
-			</div>
+const shuffleQuestions = (questions: any[]) => {
+  for (let i = questions.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [questions[i], questions[j]] = [questions[j], questions[i]];
+  }
+  return questions;
+};
+const Home = () => {
+  const [state, setState] = useState(0)
+  const [numberOfQuestion, setNumberOfQuestion] = useState(0)
+  const [questionsToShow, setQuestions] = useState(questions)
+  const [currentIndex, setCurrentIndex] = useState(0)
 
-			<div className="mt-8">
-				<Snippet hideSymbol hideCopyButton variant="flat">
-					<span>
-						Get started by editing <Code color="primary">app/page.tsx</Code>
-					</span>
-				</Snippet>
-			</div>
-		</section>
-	);
+  const handleNumberOfQuestions = useCallback((newValue: string) => {
+    setNumberOfQuestion(Number(newValue))
+  }, [])
+
+  const handleNextIndex = useCallback(() => {
+    setCurrentIndex(prevState => prevState + 1)
+  }, [])
+
+  useEffect(() => {
+    const shuffledArray = shuffleQuestions(questions);
+    const slicedArray = shuffledArray.slice(0, numberOfQuestion);
+    setQuestions(slicedArray);
+  }, [numberOfQuestion]);
+
+
+  return (
+    <div>
+      {state === 0 &&
+          <WelcomeScreen numberOfQuestions={questions.length} handleClick={() => setState(1)}
+                         handleChangeValue={handleNumberOfQuestions}/>}
+      {state !== 0 &&
+          <>
+              <Progress aria-label="Loading..." value={currentIndex * 100 / questionsToShow.length}
+                        className="max-w-md mb-12"/>
+              <Question question={questionsToShow[currentIndex]} handleNextQuestion={handleNextIndex}/>
+          </>
+      }
+    </div>
+  );
 }
+
+export default Home
