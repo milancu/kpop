@@ -57,7 +57,7 @@ const Question = ({
     if (hasValidate) {
       handleHasValidate();
     }
-  }, [handleHasValidate, hasValidate, question]);
+  }, [handleHasValidate, question]);
 
 
   return (
