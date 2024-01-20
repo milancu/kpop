@@ -54,8 +54,10 @@ const Question = ({
     setSelected([]);
     setCorrectAnswers([]);
     setWrongAnswers([]);
-    handleHasValidate();
-  }, [handleHasValidate, question]);
+    if (hasValidate) {
+      handleHasValidate();
+    }
+  }, [handleHasValidate, hasValidate, question]);
 
 
   return (
