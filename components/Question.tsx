@@ -1,8 +1,8 @@
 "use client"
 
 import {Button} from "@nextui-org/button";
-import {CheckboxGroup, Checkbox} from "@nextui-org/checkbox";
-import {SetStateAction, useCallback, useEffect, useState} from "react";
+import {CheckboxGroup} from "@nextui-org/checkbox";
+import {useCallback, useEffect, useState} from "react";
 import {CustomCheckbox} from "@/components/CustomCheckbox";
 
 const Question = ({
@@ -43,10 +43,6 @@ const Question = ({
       }
     })
 
-
-    console.log(correctAnswers)
-    console.log(wrongAnswers)
-
     handleHasValidate();
   };
 
@@ -55,17 +51,11 @@ const Question = ({
   }, [])
 
   useEffect(() => {
-    console.log(correctAnswers);
-    console.log(wrongAnswers);
-  }, [correctAnswers, wrongAnswers]);
-
-  useEffect(() => {
     setSelected([]);
     setCorrectAnswers([]);
     setWrongAnswers([]);
     handleHasValidate();
   }, [question]);
-
 
 
   return (

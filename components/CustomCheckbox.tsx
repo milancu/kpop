@@ -17,9 +17,10 @@ export const CustomCheckbox = ({
 }) => {
   return (
     <Checkbox
+      isDisabled={!editMode}
       classNames={{
         base: cn(
-          "inline-flex max-w-md w-full bg-content1 m-0",
+          "inline-flex max-w-full w-full bg-content1 m-0",
           "hover:bg-content2 items-center justify-start",
           "cursor-pointer rounded-lg gap-2 p-4 border-2 border-transparent",
           editMode && "data-[selected=true]:border-primary",

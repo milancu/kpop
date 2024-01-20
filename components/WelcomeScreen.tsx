@@ -16,18 +16,18 @@ const WelcomeScreen = ({
     <div className={"flex flex-col items-center gap-1"}>
       <h4 className={"text-2xl font-bold mb-3"}>KPOP Autoškola</h4>
       <Select label={"Vyber počet otázek"} isRequired
-              defaultSelectedKeys={[30]}
+              defaultSelectedKeys={["3"]}
               onChange={e => handleChangeValue(e.target.value)}>
-        <SelectItem value={20} key={20}>
+        <SelectItem value={20} key={"1"}>
           20
         </SelectItem>
-        <SelectItem value={30} key={30}>
+        <SelectItem value={30} key={"2"}>
           30
         </SelectItem>
-        <SelectItem value={40} key={40}>
+        <SelectItem value={40} key={"3"}>
           40
         </SelectItem>
-        <SelectItem value={numberOfQuestions} key={numberOfQuestions} textValue={`Všechny (${numberOfQuestions})`}>
+        <SelectItem value={numberOfQuestions} key={"4"} textValue={`Všechny (${numberOfQuestions})`}>
           Všechny ({numberOfQuestions})
         </SelectItem>
       </Select>
