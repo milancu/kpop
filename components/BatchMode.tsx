@@ -3,7 +3,7 @@
 import {Progress} from "@nextui-org/progress";
 import {Button} from "@nextui-org/button";
 import Question from "@/components/Question";
-import React, {useCallback, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {shuffleQuestions} from "@/utils/utils";
 
 const BatchMode = ({
@@ -19,23 +19,23 @@ const BatchMode = ({
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
   const [questionsToShow, setQuestionsToShow] = useState<any[]>(batchQuestion[currentBatchIndex])
 
-  console.log(batchQuestion.length)
-  console.log(questionsToShow.length)
-
   const handleNextQuestionIndex = useCallback(() => {
     setCurrentQuestionIndex((prevState) => prevState + 1)
   }, [])
 
   const handleNextBatchIndex = useCallback(() => {
     setCurrentBatchIndex((prevState) => prevState + 1)
-    setQuestionsToShow(batchQuestion[currentBatchIndex])
     setCurrentQuestionIndex(0)
-  }, [batchQuestion, currentBatchIndex])
+  }, [])
 
   const handlePlayAgain = useCallback(() => {
     setQuestionsToShow((prevState) => shuffleQuestions(prevState))
     setCurrentQuestionIndex(0)
   }, [])
+
+  useEffect(() => {
+    setQuestionsToShow(batchQuestion[currentBatchIndex])
+  }, [currentBatchIndex]);
 
 
   return (
@@ -52,7 +52,7 @@ const BatchMode = ({
         <div
           className={"w-full flex flex-col gap-2.5"}>
           <Button className={"w-full"} onClick={handlePlayAgain}>Chci hrát to samé znova!</Button>
-          {currentBatchIndex === batchQuestion.length ?
+          {(currentBatchIndex + 1) === batchQuestion.length ?
             <Button color={"primary"} className={"w-full"} onClick={handleBackToHome}>Už jsi dohrál! Zpátky
               domu</Button> :
             <Button color={"primary"} className={"w-full"} onClick={handleNextBatchIndex}>Už to umím, další
