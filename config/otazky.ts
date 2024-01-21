@@ -1606,7 +1606,7 @@ export const questions = [
         text: "exponenciálně"
       }
     ],
-    correctAnswers: [2],
+    correctAnswers: [3],
     maybe:[]
   },
   {
