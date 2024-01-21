@@ -19,15 +19,14 @@ const BatchMode = ({
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
   const [questionsToShow, setQuestionsToShow] = useState<any[]>(batchQuestion[currentBatchIndex])
 
+  console.log(batchQuestion.length)
+  console.log(questionsToShow.length)
+
   const handleNextQuestionIndex = useCallback(() => {
     setCurrentQuestionIndex((prevState) => prevState + 1)
   }, [])
 
   const handleNextBatchIndex = useCallback(() => {
-    if(currentBatchIndex===0){
-      setCurrentBatchIndex(10)
-      return
-    }
     setCurrentBatchIndex((prevState) => prevState + 1)
     setQuestionsToShow(batchQuestion[currentBatchIndex])
     setCurrentQuestionIndex(0)
@@ -43,7 +42,7 @@ const BatchMode = ({
     <>
       {currentQuestionIndex !== questionsToShow.length &&
           <div className={"font-bold text-center w-full mb-1 flex justify-between"}>
-              <div>{"Batch: " + (currentBatchIndex + 1) + "/" + (batchQuestion.length + 1)}</div>
+              <div>{"Batch: " + (currentBatchIndex + 1) + "/" + batchQuestion.length}</div>
               <div>{"Otázka: " + (currentQuestionIndex + 1) + "/" + questionsToShow.length}</div>
           </div>
       }
