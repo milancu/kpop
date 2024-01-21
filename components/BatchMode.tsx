@@ -25,8 +25,9 @@ const BatchMode = ({
 
   const handleNextBatchIndex = useCallback(() => {
     setCurrentBatchIndex((prevState) => prevState + 1)
+    setQuestionsToShow(batchQuestion[currentBatchIndex])
     setCurrentQuestionIndex(0)
-  }, [])
+  }, [batchQuestion, currentBatchIndex])
 
   const handlePlayAgain = useCallback(() => {
     setQuestionsToShow((prevState) => shuffleQuestions(prevState))
@@ -38,7 +39,7 @@ const BatchMode = ({
     <>
       {currentQuestionIndex !== questionsToShow.length &&
           <div className={"font-bold text-center w-full mb-1 flex justify-between"}>
-              <div>{"Batch: " + (currentBatchIndex + 1) + "/" + batchQuestion.length}</div>
+              <div>{"Batch: " + (currentBatchIndex) + "/" + batchQuestion.length}</div>
               <div>{"Otázka: " + (currentQuestionIndex + 1) + "/" + questionsToShow.length}</div>
           </div>
       }
@@ -48,7 +49,7 @@ const BatchMode = ({
         <div
           className={"w-full flex flex-col gap-2.5"}>
           <Button className={"w-full"} onClick={handlePlayAgain}>Chci hrát to samé znova!</Button>
-          {currentBatchIndex + 1 === batchQuestion.length ?
+          {currentBatchIndex === batchQuestion.length ?
             <Button color={"primary"} className={"w-full"} onClick={handleBackToHome}>Už jsi dohrál! Zpátky
               domu</Button> :
             <Button color={"primary"} className={"w-full"} onClick={handleNextBatchIndex}>Už to umím, další
