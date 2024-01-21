@@ -102,7 +102,7 @@ const Question = ({
             <>
               {hasValidate &&
                   <Button onPress={onOpen} className={"mr-1"} variant={"light"} color={"primary"}>Jak funguje
-                      hodnoceni?</Button>}
+                      hodnocení?</Button>}
                 <Button color={"primary"} variant={"shadow"} onClick={handleNextQuestion}>
                     Další
                 </Button>
