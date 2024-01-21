@@ -4,6 +4,7 @@ import {Button} from "@nextui-org/button";
 import {CheckboxGroup} from "@nextui-org/checkbox";
 import {useCallback, useEffect, useState} from "react";
 import {CustomCheckbox} from "@/components/CustomCheckbox";
+import {shuffleQuestions} from "@/utils/utils";
 
 const Question = ({
                     handleNextQuestion,
@@ -18,6 +19,7 @@ const Question = ({
   const [hasValidate, setHasValidate] = useState(false)
   const [correctAnswers, setCorrectAnswers] = useState<number[]>([]);
   const [wrongAnswers, setWrongAnswers] = useState<number[]>([]);
+  const [shuffledAnswers, setShuffledAnswers] = useState<any[]>([]);
 
   const addWrongAnswer = (answer: number) => {
     setWrongAnswers((prevState) => [...prevState, answer]);
@@ -61,6 +63,10 @@ const Question = ({
     }
   }, [handleHasValidate, question]);
 
+  useEffect(() => {
+    setShuffledAnswers(shuffleQuestions(question.answers))
+  }, [question]);
+
 
   return (
     <div className={"mb-2"}>
@@ -75,7 +81,7 @@ const Question = ({
             base: "w-full"
           }}
         >
-          {question.answers.map((a: any) => {
+          {shuffledAnswers.map((a: any) => {
             return (
               <CustomCheckbox key={a.id}
                               answer={a}
@@ -95,7 +101,8 @@ const Question = ({
         {hasValidate &&
             <>
               {hasValidate &&
-                  <Button onPress={onOpen} className={"mr-1"} variant={"light"} color={"primary"}>Jak funguje hodnoceni?</Button>}
+                  <Button onPress={onOpen} className={"mr-1"} variant={"light"} color={"primary"}>Jak funguje
+                      hodnoceni?</Button>}
                 <Button color={"primary"} variant={"shadow"} onClick={handleNextQuestion}>
                     Další
                 </Button>

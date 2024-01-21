@@ -7,26 +7,11 @@ import Question from "@/components/Question";
 import {Progress} from "@nextui-org/progress";
 import {Button} from "@nextui-org/button";
 import BatchMode from "@/components/BatchMode";
-import {Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure} from "@nextui-org/modal";
-import {Checkbox} from "@nextui-org/checkbox";
-import {cn} from "@nextui-org/system-rsc";
+import {useDisclosure} from "@nextui-org/modal";
 import CustomModal from "@/components/CustomModal";
+import {chunkArray, shuffleQuestions} from "@/utils/utils";
 
-function chunkArray<T>(arr: T[], chunkSize: number): T[][] {
-  const result: T[][] = [];
-  for (let i = 0; i < arr.length; i += chunkSize) {
-    result.push(arr.slice(i, i + chunkSize));
-  }
-  return result;
-}
 
-const shuffleQuestions = (questions: any[]) => {
-  for (let i = questions.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [questions[i], questions[j]] = [questions[j], questions[i]];
-  }
-  return questions;
-};
 const Home = () => {
   const {
     isOpen,
@@ -47,6 +32,11 @@ const Home = () => {
 
   const handleNextIndex = useCallback(() => {
     setCurrentIndex(prevState => prevState + 1)
+  }, [])
+
+  const handlePlayAgain = useCallback(() => {
+    setQuestions((prevState) => shuffleQuestions(prevState));
+    setCurrentIndex(0)
   }, [])
 
   useEffect(() => {
@@ -84,12 +74,13 @@ const Home = () => {
             {currentIndex === questionsToShow.length ?
               <div
                 className={"w-full flex flex-col gap-2.5"}>
-                <Button className={"w-full"} onClick={() => setCurrentIndex(0)}>Chci hrát to samé znova!</Button>
+                <Button className={"w-full"} onClick={handlePlayAgain}>Chci hrát to samé znova!</Button>
                 <Button color={"primary"} className={"w-full"} onClick={() => setState(0)}>Už to umím, chci novou
                   hru!</Button>
               </div> :
               <>
-                <Question onOpen={onOpen} question={questionsToShow[currentIndex]} handleNextQuestion={handleNextIndex}/>
+                <Question onOpen={onOpen} question={questionsToShow[currentIndex]}
+                          handleNextQuestion={handleNextIndex}/>
               </>
             }
           </>

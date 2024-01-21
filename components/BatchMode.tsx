@@ -4,6 +4,7 @@ import {Progress} from "@nextui-org/progress";
 import {Button} from "@nextui-org/button";
 import Question from "@/components/Question";
 import React, {useCallback, useState} from "react";
+import {shuffleQuestions} from "@/utils/utils";
 
 const BatchMode = ({
                      batchQuestion,
@@ -16,7 +17,7 @@ const BatchMode = ({
 }) => {
   const [currentBatchIndex, setCurrentBatchIndex] = useState(0)
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
-  const questionsToShow = batchQuestion[currentBatchIndex]
+  const [questionsToShow, setQuestionsToShow] = useState<any[]>(batchQuestion[currentBatchIndex])
 
   const handleNextQuestionIndex = useCallback(() => {
     setCurrentQuestionIndex((prevState) => prevState + 1)
@@ -24,6 +25,11 @@ const BatchMode = ({
 
   const handleNextBatchIndex = useCallback(() => {
     setCurrentBatchIndex((prevState) => prevState + 1)
+    setCurrentQuestionIndex(0)
+  }, [])
+
+  const handlePlayAgain = useCallback(() => {
+    setQuestionsToShow((prevState) => shuffleQuestions(prevState))
     setCurrentQuestionIndex(0)
   }, [])
 
@@ -41,7 +47,7 @@ const BatchMode = ({
       {currentQuestionIndex === questionsToShow.length ?
         <div
           className={"w-full flex flex-col gap-2.5"}>
-          <Button className={"w-full"} onClick={() => setCurrentQuestionIndex(0)}>Chci hrát to samé znova!</Button>
+          <Button className={"w-full"} onClick={handlePlayAgain}>Chci hrát to samé znova!</Button>
           {currentBatchIndex + 1 === batchQuestion.length ?
             <Button color={"primary"} className={"w-full"} onClick={handleBackToHome}>Už jsi dohrál! Zpátky
               domu</Button> :
@@ -50,7 +56,8 @@ const BatchMode = ({
           }
         </div> :
         <>
-          <Question onOpen={onOpen} question={questionsToShow[currentQuestionIndex]} handleNextQuestion={handleNextQuestionIndex}/>
+          <Question onOpen={onOpen} question={questionsToShow[currentQuestionIndex]}
+                    handleNextQuestion={handleNextQuestionIndex}/>
         </>
       }
     </>
