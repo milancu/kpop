@@ -1656,7 +1656,7 @@ export const questions = [
         text: "ztrátu diverzity"
       }
     ],
-    correctAnswers: [1, 3, 4],
+    correctAnswers: [1, 2, 4],
     maybe:[]
   },
   {
