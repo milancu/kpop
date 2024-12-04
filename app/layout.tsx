@@ -5,6 +5,7 @@ import {fontSans} from "@/config/fonts";
 import {Providers} from "./providers";
 import clsx from "clsx";
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import { Analytics } from "@vercel/analytics/react"
 
 export const metadata: Metadata = {
   title: {
@@ -55,6 +56,7 @@ export default function RootLayout({
       </div>
     </Providers>
     <SpeedInsights />
+    <Analytics />
     </body>
     </html>
   );
